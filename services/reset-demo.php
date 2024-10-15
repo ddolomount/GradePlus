@@ -2,8 +2,8 @@
 
 $_POST["authorize"] = "gradeplus";
 
-header('Content-Type: application/json');
-    echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
+$success = 10;
+$error = 11;
 
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
 if ($_POST["authorize"] == "gradeplus") {
