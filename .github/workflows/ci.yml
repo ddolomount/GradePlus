@@ -36,13 +36,13 @@ jobs:
           extensions: mysqli pdo_mysql
 
       - name: Start PHP built-in server
-        run: php -S localhost:8000 -t ./ > /dev/null 2>&1 &
-      
-      - name: Test MYSQL Connection
-        run: mysql -h127.0.0.1 -uroot -e "SHOW DATABASES;" || exit 1
+        run: php -S localhost:8000 -t ./ > /dev/null 2>&1 &\
 
       - name: Run composer install
         run: composer install
 
       - name: Run Tests
         run: vendor/bin/codecept run --debug
+
+      - name: Show MySQL logs
+        run: cat /var/log/mysql/error.log || true
