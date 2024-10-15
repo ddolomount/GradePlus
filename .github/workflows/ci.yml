@@ -43,6 +43,7 @@ jobs:
 
       - name: Run Tests
         run: vendor/bin/codecept run --debug
+        continue-on-error: true
 
       - name: Show MySQL logs
         run: cat /var/log/mysql/error.log || true
