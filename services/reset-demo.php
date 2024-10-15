@@ -4,9 +4,6 @@ $_POST["authorize"] = "gradeplus";
 
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
 if ($_POST["authorize"] == "gradeplus") {
-    header('Content-Type: application/json');
-    echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
-    
     try {
         // Initialize/Reset Demo Database
         // Connect to MySQL as admin
@@ -24,22 +21,16 @@ if ($_POST["authorize"] == "gradeplus") {
             $createUserSql = "CREATE USER 'gradeplusclient'@'localhost' IDENTIFIED BY 'gradeplussql'";
             $result = mysqli_query($conn, $createUserSql);
             if (!$result) {
-                header('Content-Type: application/json');
-                echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
                 error_log("Create user query failed: " . mysqli_error($conn));
             }
 
             $grantPrivilegesSql = "GRANT ALL PRIVILEGES ON gradeplus.* TO 'gradeplusclient'@'localhost';";
             $result = mysqli_query($conn, $grantPrivilegesSql);
             if (!$result) {
-                header('Content-Type: application/json');
-                echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
                 error_log("Grant privileges query failed: " . mysqli_error($conn));
             }
             $result = mysqli_query($conn, "FLUSH PRIVILEGES");
             if (!$result) {
-                header('Content-Type: application/json');
-                echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
                 error_log("Flush privileges query failed: " . mysqli_error($conn));
             }
         }
@@ -50,8 +41,6 @@ if ($_POST["authorize"] == "gradeplus") {
         // Create gradeplusclient connection
         $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql');
         if (!$conn) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Connection to MySQL as gradeplusclient failed: " . mysqli_connect_error());
         }
 
@@ -60,8 +49,6 @@ if ($_POST["authorize"] == "gradeplus") {
         $result = mysqli_query($conn, $createDbSql);
         mysqli_select_db($conn, 'gradeplus');
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Create database query failed: " . mysqli_error($conn));
         }
 
@@ -69,8 +56,6 @@ if ($_POST["authorize"] == "gradeplus") {
         $resetTableSql = "DROP TABLE IF EXISTS login;";
         $result = mysqli_query($conn, $resetTableSql);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Drop table query failed: " . mysqli_error($conn));
         }
 
@@ -88,8 +73,6 @@ if ($_POST["authorize"] == "gradeplus") {
         );";
         $result = mysqli_query($conn, $createTableSql);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Create table query failed: " . mysqli_error($conn));
         }
 
@@ -103,8 +86,6 @@ if ($_POST["authorize"] == "gradeplus") {
         ";
         $result = mysqli_query($conn, $insertDataSql);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
 
@@ -112,8 +93,6 @@ if ($_POST["authorize"] == "gradeplus") {
         $resetTableSqlEnrollment = "DROP TABLE IF EXISTS enrollment;";
         $result = mysqli_query($conn, $resetTableSqlEnrollment);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Drop table query failed: " . mysqli_error($conn));
         }
 
@@ -128,8 +107,6 @@ if ($_POST["authorize"] == "gradeplus") {
         );";
         $result = mysqli_query($conn, $createTableSqlEnrollment);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Create table query failed: " . mysqli_error($conn));
         }
 
@@ -141,8 +118,6 @@ if ($_POST["authorize"] == "gradeplus") {
         ";
         $result = mysqli_query($conn, $insertDataSqlEnrollment);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
 
@@ -150,8 +125,6 @@ if ($_POST["authorize"] == "gradeplus") {
         $resetTableSql = "DROP TABLE IF EXISTS courses;";
         $result = mysqli_query($conn, $resetTableSql);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Drop courses table query failed: " . mysqli_error($conn));
         }
 
@@ -168,8 +141,6 @@ if ($_POST["authorize"] == "gradeplus") {
 
         $result = mysqli_query($conn, $createTableSql);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Failed to create courses table: " . mysqli_error($conn));
         }
 
@@ -180,8 +151,6 @@ if ($_POST["authorize"] == "gradeplus") {
                 ";
         $result = mysqli_query($conn, $insertDataSqlCourses);
         if (!$result) {
-            header('Content-Type: application/json');
-            echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
 
@@ -189,6 +158,8 @@ if ($_POST["authorize"] == "gradeplus") {
         $error = 0;
     } catch (Exception $e) {
         // SQL error
+        header('Content-Type: application/json');
+        echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
         $success = 0;
         $error = 1;
     }
@@ -198,7 +169,5 @@ if ($_POST["authorize"] == "gradeplus") {
     echo json_encode(["success" => $success,"error" => $error,"illegal" => 0]);
 } else {
     // User is not authorized
-    header('Content-Type: application/json');
-    echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
     header("Location: illegal.php");
 }
