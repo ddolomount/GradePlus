@@ -40,3 +40,6 @@ jobs:
 
       - name: Run composer install
         run: composer install
+
+      - name: Run Tests
+        run: vendor/bin/codecept run
