@@ -76,7 +76,9 @@ $courses = [];
                 <h3 class="coursedash-header">
                     Assignments
                 </h3>
-                <p>Not Implemented Yet</p>
+                <div class="coursedash-content">
+                    <p>Not Implemented Yet</p>
+                </div>
             </div>
         </div>
         <div class="courseholder bwcolortext">
