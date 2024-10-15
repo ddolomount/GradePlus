@@ -159,7 +159,7 @@ if ($_POST["authorize"] == "gradeplus") {
     } catch (Exception $e) {
         // SQL error
         header('Content-Type: application/json');
-        echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
+        echo json_encode(["success" => 10,"error" => 11,"illegal" => 0, "exception" => $e->getMessage()]);
         $success = 0;
         $error = 1;
     }
