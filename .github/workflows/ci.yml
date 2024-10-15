@@ -38,6 +38,9 @@ jobs:
           php-version: '8.2'
           extensions: mysqli pdo_mysql
 
+      - name: Start PHP built-in server
+        run: php -S localhost -t ./ > /dev/null 2>&1 &
+      
       - name: Run composer install
         run: composer install
 
