@@ -2,9 +2,6 @@
 
 $_POST["authorize"] = "gradeplus";
 
-$success = 10;
-$error = 11;
-
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
 if ($_POST["authorize"] == "gradeplus") {
     try {
@@ -12,6 +9,8 @@ if ($_POST["authorize"] == "gradeplus") {
         // Connect to MySQL as admin
         $conn = mysqli_connect('localhost', 'root', '');
         if (!$conn) {
+            header('Content-Type: application/json');
+    echo json_encode(["success" => 10,"error" => 11,"illegal" => 0]);
             error_log("Connection to MySQL as admin failed: " . mysqli_connect_error());
         }
 
