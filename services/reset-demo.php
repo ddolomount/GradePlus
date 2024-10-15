@@ -7,7 +7,7 @@ if ($_POST["authorize"] == "gradeplus") {
     try {
         // Initialize/Reset Demo Database
         // Connect to MySQL as admin
-        $conn = mysqli_connect('127.0.0.1', 'root', '');
+        $conn = mysqli_connect('127.0.0.1', 'root', 'a');
         if (!$conn) {
             error_log("Connection to MySQL as admin failed: " . mysqli_connect_error());
         }
