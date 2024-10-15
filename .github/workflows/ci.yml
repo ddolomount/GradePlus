@@ -15,6 +15,11 @@ jobs:
     services:
       mysql:
         image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword    # Set the MySQL root password
+          MYSQL_DATABASE: gradeplus
+          MYSQL_USER: gradeplusclient
+          MYSQL_PASSWORD: gradeplussql
         ports:
           - 3306:3306
         options: >-
