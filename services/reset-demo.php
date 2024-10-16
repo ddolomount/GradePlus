@@ -20,13 +20,13 @@ if ($_POST["authorize"] == "gradeplus") {
         $row = mysqli_fetch_array($result);
         // Create user and give privileges if it does not exist
         if ($row[0] == 0) {
-            $createUserSql = "CREATE USER 'gradeplusclient'@'127.0.0.1' IDENTIFIED BY 'gradeplussql'";
+            $createUserSql = "CREATE USER 'gradeplusclient'@'172.18.0.1' IDENTIFIED BY 'gradeplussql'";
             $result = mysqli_query($conn, $createUserSql);
             if (!$result) {
                 error_log("Create user query failed: " . mysqli_error($conn));
             }
 
-            $grantPrivilegesSql = "GRANT ALL PRIVILEGES ON gradeplus.* TO 'gradeplusclient'@'127.0.0.1';";
+            $grantPrivilegesSql = "GRANT ALL PRIVILEGES ON gradeplus.* TO 'gradeplusclient'@'172.18.0.1';";
             $result = mysqli_query($conn, $grantPrivilegesSql);
             if (!$result) {
                 error_log("Grant privileges query failed: " . mysqli_error($conn));
@@ -41,7 +41,7 @@ if ($_POST["authorize"] == "gradeplus") {
         mysqli_close($conn);
 
         // Create gradeplusclient connection
-        $conn = mysqli_connect('127.0.0.1', 'gradeplusclient', 'gradeplussql');
+        $conn = mysqli_connect('172.18.0.1', 'gradeplusclient', 'gradeplussql');
         if (!$conn) {
             error_log("Connection to MySQL as gradeplusclient failed: " . mysqli_connect_error());
         }
