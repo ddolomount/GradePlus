@@ -1,5 +1,7 @@
 <?php
 
+use PhpParser\Node\Expr\Exit_;
+
 $_POST["authorize"] = "gradeplus";
 
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
@@ -22,16 +24,19 @@ if ($_POST["authorize"] == "gradeplus") {
             $result = mysqli_query($conn, $createUserSql);
             if (!$result) {
                 error_log("Create user query failed: " . mysqli_error($conn));
+                throw new Exception("We cannot create the user");
             }
 
             $grantPrivilegesSql = "GRANT ALL PRIVILEGES ON gradeplus.* TO 'gradeplusclient'@'127.0.0.1';";
             $result = mysqli_query($conn, $grantPrivilegesSql);
             if (!$result) {
                 error_log("Grant privileges query failed: " . mysqli_error($conn));
+                throw new Exception("We cannot grant priveleges");
             }
             $result = mysqli_query($conn, "FLUSH PRIVILEGES");
             if (!$result) {
                 error_log("Flush privileges query failed: " . mysqli_error($conn));
+                throw new Exception("We cannot flush priveleges");
             }
         }
 
