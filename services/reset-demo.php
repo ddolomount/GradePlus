@@ -7,7 +7,7 @@ if ($_POST["authorize"] == "gradeplus") {
     try {
         // Initialize/Reset Demo Database
         // Connect to MySQL as admin
-        $conn = mysqli_connect('localhost', 'root', '');
+        $conn = mysqli_connect('127.0.0.1', 'root', '');
         if (!$conn) {
             error_log("Connection to MySQL as admin failed: " . mysqli_connect_error());
         }
@@ -39,7 +39,7 @@ if ($_POST["authorize"] == "gradeplus") {
         mysqli_close($conn);
 
         // Create gradeplusclient connection
-        $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql');
+        $conn = mysqli_connect('127.0.0.1', 'gradeplusclient', 'gradeplussql');
         if (!$conn) {
             error_log("Connection to MySQL as gradeplusclient failed: " . mysqli_connect_error());
         }
