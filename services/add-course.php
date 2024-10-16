@@ -1,10 +1,12 @@
 <?php
 
+$mysqlHost = getenv('CI_ENV') === 'ci' ? '172.18.0.1' : '127.0.0.1';
+
 // Check if the authorization key matches the shared secret
 if ($_POST["authorize"] == "gradeplus") {
     try {
         // Create a new MySQLi connection
-        $conn = new mysqli("172.18.0.1", "gradeplusclient", "gradeplussql", "gradeplus");
+        $conn = new mysqli($mysqlHost, "gradeplusclient", "gradeplussql", "gradeplus");
 
         // If the connection fails, throw an exception
         if (!$conn) {
