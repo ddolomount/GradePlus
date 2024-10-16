@@ -41,6 +41,12 @@ jobs:
       - name: Run composer install
         run: composer install
 
+      - name: Set environment variable for CI
+        run: echo "CI_ENV=ci" >> $GITHUB_ENV
+
+      - name: Verify Environment Variable
+        run: echo "CI_ENV: $CI_ENV"
+
       - name: Run Tests
         run: vendor/bin/codecept run --debug
         continue-on-error: true
