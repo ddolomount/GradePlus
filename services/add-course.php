@@ -4,7 +4,7 @@
 if ($_POST["authorize"] == "gradeplus") {
     try {
         // Create a new MySQLi connection
-        $conn = new mysqli("172.18.0.0.1", "gradeplusclient", "gradeplussql", "gradeplus");
+        $conn = new mysqli("172.18.0.1", "gradeplusclient", "gradeplussql", "gradeplus");
 
         // If the connection fails, throw an exception
         if (!$conn) {
