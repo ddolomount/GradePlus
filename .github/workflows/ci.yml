@@ -45,5 +45,5 @@ jobs:
         run: vendor/bin/codecept run --debug
         continue-on-error: true
 
-      - name: Check gradeplus mysql
-        run: mysql -h127.0.0.1 -ugradeplusclient -pgradeplussql -e "SHOW DATABASES;"
+      - name: Check MySQL users
+        run: mysql -h127.0.0.1 -uroot -e "SELECT host, user FROM mysql.user;"
