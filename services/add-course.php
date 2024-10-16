@@ -65,6 +65,8 @@ if ($_POST["authorize"] == "gradeplus") {
         }
 
     } catch (Exception $e) {
+        header('Content-Type: application/json');
+        echo json_encode(["success" => $success, "error" => $error, "message" => $e->getMessage()]);
         $success = 0;
         $error = 1;
     }
